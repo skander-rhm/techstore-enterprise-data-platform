@@ -207,6 +207,8 @@ The fact grains are documented in [`docs/reports/transformation_report.md`](docs
 
 ## SQL Analytics
 
+PostgreSQL is used for analytical SQL after the warehouse layer. The analytics scripts query the `dw` schema and provide reusable views, domain analysis, business KPIs, and SQL quality checks.
+
 `sql/analytics/00_create_views.sql` creates these six reusable views:
 
 - `analytics.vw_sales_kpis`
@@ -216,7 +218,20 @@ The fact grains are documented in [`docs/reports/transformation_report.md`](docs
 - `analytics.vw_store_performance`
 - `analytics.vw_returns_analysis`
 
-Scripts `01` through `09` cover sales KPIs and trends, products, customers, stores and employees, returns, inventory, payments, and business KPIs. `99_quality_checks.sql` validates the analytics layer. The existing report records **12/12 analytics checks PASS**.
+| Analysis Area | Description |
+|---|---|
+| Sales KPIs | Overall sales, revenue, cost, margin, quantity, order value, customer, product, and return metrics. |
+| Sales trends | Yearly, quarterly, and monthly revenue, margin, quantity, sales counts, month-over-month, and year-over-year analysis. |
+| Product analysis | Product, category, and brand performance, including revenue, margin, quantity, and returns. |
+| Customer analysis | Customer revenue, margin, order value, return frequency, and value segments. |
+| Store and employee analysis | Store rankings and employee sales, revenue, margin, quantity, and ranking analysis. |
+| Returns analysis | Return rates, refunds, products, stores, customers, months, and return reasons. |
+| Inventory analysis | Observed stock before and after sales, inventory events, quantities sold, and low-stock analysis. |
+| Payment analysis | Payment amounts, methods, statuses, currencies, and payment-to-sale comparisons. |
+| Business KPIs | Revenue and margin by sales channel, order status, and delivery method. |
+| SQL quality checks | View presence, KPI validity, grain uniqueness, date coherence, reconciliation, payment, and inventory checks. |
+
+The scripts `01_sales_kpis.sql` through `09_business_kpis.sql` cover the analysis areas documented above. `99_quality_checks.sql` validates the analytics layer; the existing report records **12/12 analytics checks PASS**.
 
 The verified global KPI snapshot in [`docs/reports/sql_analytics_report.md`](docs/reports/sql_analytics_report.md) includes:
 
@@ -306,17 +321,21 @@ Examples of analytical measures include:
 
 The PBIX remains the source for the complete Power BI semantic model, relationships, visuals, and DAX implementation.
 
-## Data Quality
+## Data Quality & Validation
 
-Quality controls are implemented at Silver, Gold, warehouse, and analytics stages:
+Data quality is checked throughout the pipeline, from RAW profiling and Silver cleaning through Gold transformation, warehouse loading, and SQL analytics.
 
-- required-field and identifier checks;
-- duplicate and primary-key checks;
-- date, quantity, price, discount, return, and financial consistency;
-- foreign-key and orphan-record checks;
-- Gold-to-warehouse row-count reconciliation;
-- payment and inventory reconciliation;
-- analytical grain and KPI checks.
+| Layer | Quality Controls |
+|---|---|
+| RAW profiling | Dataset shape, column profiles, missing values, distinct values, and exact duplicate-row detection. |
+| SILVER cleaning | Required fields, duplicate sale IDs, identifiers, date consistency, quantities, prices, discounts, returns, stock, satisfaction scores, and financial calculations. |
+| GOLD transformation | Primary-key checks, foreign-key checks, financial consistency, quantity and inventory checks, date-key checks, return checks, payment checks, and completeness checks. |
+| PostgreSQL warehouse | Table presence, Gold-to-warehouse row-count reconciliation, primary keys, foreign keys, orphan detection, surrogate keys, and warehouse quality checks. |
+| SQL analytics | Analytical view presence, non-negative KPIs, division-by-zero protection, margin reconciliation, unique analytical grains, date coherence, monthly revenue reconciliation, payment reconciliation, and inventory reconciliation. |
+
+The recorded Silver quality audit passed with zero reported issues across its duplicate, required-field, identifier, date, business-rule, and financial checks. The Gold transformation quality audit reports `passed: true` with zero reported issues across the listed primary-key, foreign-key, financial, quantity, date, return, payment, inventory, and completeness checks.
+
+The warehouse load audit reports `status: PASS`, matching source and destination row counts for all 11 warehouse tables, with `pk_pass`, `fk_pass`, `surrogate_keys_pass`, and `quality_checks_pass` all true and zero foreign-key orphans. The warehouse SQL quality checks also recorded PASS for all six checks, while the SQL analytics report records **12/12 analytics checks PASS**.
 
 The generated audits distinguish a data-quality **PASS** from implementation completeness. Audit files are retained as evidence, while large generated CSVs remain local.
 
@@ -352,9 +371,9 @@ techstore-enterprise-data-platform/
 └── requirements.txt
 ```
 
-## Installation
+## Installation / Quick Start
 
-From the repository root:
+From the repository root, use Python and a local PostgreSQL instance:
 
 ```powershell
 python -m venv .venv
@@ -363,46 +382,64 @@ python -m pip install -r requirements.txt
 Copy-Item .env.example .env
 ```
 
+The requirements file specifies pandas, NumPy, PyArrow, SQLAlchemy, psycopg, python-dotenv, and pytest. Python 3.12 is the recommended project environment. The dependency file itself does not declare a Python version constraint.
+
 Do not commit `.env`. The example file contains placeholders only.
 
 ## Configuration
 
-The loader reads `TECHSTORE_PG*` variables first and falls back to standard PostgreSQL environment variables. The documented local defaults are:
+The warehouse loader reads `TECHSTORE_PG*` variables first and falls back to standard PostgreSQL environment variables. `.env.example` defines these local connection settings:
 
 ```text
-DB_HOST=localhost
-DB_PORT=5432
-DB_NAME=postgres
-DB_USER=postgres
-DB_PASSWORD=your_password_here
+TECHSTORE_PGHOST=localhost
+TECHSTORE_PGPORT=5432
+TECHSTORE_PGNAME=postgres
+TECHSTORE_PGUSER=postgres
+TECHSTORE_PGPASSWORD=your_password_here
 ```
 
-Use the corresponding `TECHSTORE_PGHOST`, `TECHSTORE_PGPORT`, `TECHSTORE_PGNAME`, `TECHSTORE_PGUSER`, and `TECHSTORE_PGPASSWORD` names when running the loader. No password is stored in this repository.
+Prepare a PostgreSQL database using the values configured above. The loader connects to PostgreSQL, executes the warehouse DDL files, and writes the warehouse load audit. No password is stored in this repository.
 
-## Running the Pipeline
+Run the pipeline in order:
 
-Place the source CSV at `data/raw/techstore_dataset.csv`, then run:
+1. Place the source CSV at `data/raw/techstore_dataset.csv`.
+2. Run profiling, cleaning, and transformation:
 
 ```powershell
 python src/quality/profile_dataset.py
 python src/cleaning/clean_dataset.py
 python src/transformation/split_into_tables.py
+```
+
+3. Load the PostgreSQL warehouse:
+
+```powershell
 python src/warehouse/load_datawarehouse.py
 ```
 
 The warehouse loader uses a transactional truncate-and-reload strategy, loads dimensions before facts, resolves surrogate keys, uses PostgreSQL `COPY`, runs quality checks, and writes `data/gold/warehouse_load_audit.json`.
 
-## PostgreSQL and SQL Analytics
-
-Create or use a local PostgreSQL database, configure the environment variables, and run the warehouse loader. Then execute the analytics scripts in order:
+4. Run the SQL analytics views, analysis scripts, and quality checks with `psql`:
 
 ```powershell
 psql -h localhost -p 5432 -U postgres -d postgres -f sql/analytics/00_create_views.sql
 psql -h localhost -p 5432 -U postgres -d postgres -f sql/analytics/01_sales_kpis.sql
-# Repeat for 02 through 09 and finish with 99_quality_checks.sql.
+psql -h localhost -p 5432 -U postgres -d postgres -f sql/analytics/02_sales_trends.sql
+psql -h localhost -p 5432 -U postgres -d postgres -f sql/analytics/03_product_analysis.sql
+psql -h localhost -p 5432 -U postgres -d postgres -f sql/analytics/04_customer_analysis.sql
+psql -h localhost -p 5432 -U postgres -d postgres -f sql/analytics/05_store_employee_analysis.sql
+psql -h localhost -p 5432 -U postgres -d postgres -f sql/analytics/06_returns_analysis.sql
+psql -h localhost -p 5432 -U postgres -d postgres -f sql/analytics/07_inventory_analysis.sql
+psql -h localhost -p 5432 -U postgres -d postgres -f sql/analytics/08_payment_analysis.sql
+psql -h localhost -p 5432 -U postgres -d postgres -f sql/analytics/09_business_kpis.sql
+psql -h localhost -p 5432 -U postgres -d postgres -f sql/analytics/99_quality_checks.sql
 ```
 
-The `psql` commands prompt for credentials when needed; never place a password in a command copied into source control.
+The `psql` commands prompt for credentials when needed. Open the Power BI file after the warehouse and analytics layer are available:
+
+[`powerbi/TechStore_Business_Intelligence_Dashboard.pbix`](powerbi/TechStore_Business_Intelligence_Dashboard.pbix)
+
+Large/generated RAW, SILVER, and GOLD CSV files are intentionally excluded from GitHub by the repository configuration. Obtain or regenerate the source data locally before running the pipeline.
 
 ## Documentation
 
