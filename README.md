@@ -61,6 +61,50 @@ PostgreSQL Data Warehouse
 - **Analytics** — SQL queries and analytical views for business analysis.
 - **BI Layer** — Power BI semantic model with relationships, DAX measures, filtering, and interactive dashboards.
 
+## Data Warehouse
+
+The PostgreSQL warehouse uses the `dw` schema and a dimensional model with **7 dimension tables** and **4 fact tables**. Dimension and fact tables use technical surrogate keys, including identity-generated keys where defined in the DDL, while foreign keys maintain referential integrity between related tables.
+
+### Dimensions
+
+- Customer — `dw.dw_dim_customer`
+- Product — `dw.dw_dim_product`
+- Supplier — `dw.dw_dim_supplier`
+- Employee — `dw.dw_dim_employee`
+- Store — `dw.dw_dim_store`
+- Warehouse — `dw.dw_dim_warehouse`
+- Date — `dw.dw_dim_date`
+
+### Facts
+
+- Sales — `dw.dw_fact_sales`
+- Returns — `dw.dw_fact_returns`
+- Payments — `dw.dw_fact_payments`
+- Inventory — `dw.dw_fact_inventory`
+
+| Type | Table | Purpose |
+|---|---|---|
+| Dimension | `dw.dw_dim_customer` | Customer descriptive attributes |
+| Dimension | `dw.dw_dim_product` | Product descriptive attributes |
+| Dimension | `dw.dw_dim_supplier` | Supplier descriptive attributes |
+| Dimension | `dw.dw_dim_employee` | Employee descriptive attributes |
+| Dimension | `dw.dw_dim_store` | Store descriptive attributes |
+| Dimension | `dw.dw_dim_warehouse` | Warehouse descriptive attributes |
+| Dimension | `dw.dw_dim_date` | Calendar and date attributes |
+| Fact | `dw.dw_fact_sales` | Sales transactions |
+| Fact | `dw.dw_fact_returns` | Returned sales and refunds |
+| Fact | `dw.dw_fact_payments` | Payment transactions |
+| Fact | `dw.dw_fact_inventory` | Inventory quantities and stock information |
+
+The DDL is executed in this order:
+
+1. `sql/warehouse/01_create_schema.sql`
+2. `sql/warehouse/02_create_dimensions.sql`
+3. `sql/warehouse/03_create_facts.sql`
+4. `sql/warehouse/04_create_indexes.sql`
+
+`05_quality_checks.sql` validates warehouse integrity. The recorded warehouse load audit reports PASS, matching Gold and warehouse row counts for all 11 tables and reporting zero orphaned foreign keys.
+
 ## Tech Stack
 
 | Layer                 | Technologies      |
@@ -160,19 +204,6 @@ The transformation produces 11 logical tables:
 | Facts      | `fact_sales` (320,000), `fact_returns` (16,192), `fact_payments` (320,000), `fact_inventory` (320,000)                                              |
 
 The fact grains are documented in [`docs/reports/transformation_report.md`](docs/reports/transformation_report.md). The transformation quality audit reports PASS for primary keys, foreign keys, financial calculations, dates, returns, payments, inventory, and completeness.
-
-## Data Warehouse
-
-The PostgreSQL warehouse uses schema `dw` and separates descriptive dimensions from transaction facts. Dimension tables use generated surrogate keys; business identifiers remain unique attributes. The model includes relational snowflake-style links from products to suppliers and warehouses to stores, so it is more accurate to describe it as a star-schema-oriented model with snowflake relationships rather than a pure textbook star schema.
-
-The DDL is executed in this order:
-
-1. `sql/warehouse/01_create_schema.sql`
-2. `sql/warehouse/02_create_dimensions.sql`
-3. `sql/warehouse/03_create_facts.sql`
-4. `sql/warehouse/04_create_indexes.sql`
-
-`05_quality_checks.sql` validates warehouse integrity. The recorded warehouse load audit reports PASS, matching Gold and warehouse row counts for all 11 tables and reporting zero orphaned foreign keys.
 
 ## SQL Analytics
 
