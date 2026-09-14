@@ -1,8 +1,10 @@
 # TechStore - Enterprise Data Platform
 
-End-to-end Business Intelligence and Data Engineering portfolio project for a technology retail dataset. The repository demonstrates reproducible profiling, data cleaning, dimensional transformation, PostgreSQL warehousing, SQL analytics, and a Power BI dashboard asset.
+End-to-end Business Intelligence and Data Engineering portfolio project for a technology retail dataset.
+![Python](https://img.shields.io/badge/Python-3.12-blue?logo=python) ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-18-336791?logo=postgresql) ![Power%20BI](https://img.shields.io/badge/Power%20BI-DAX-F2C811?logo=powerbi) ![Pandas](https://img.shields.io/badge/Pandas-Data%20Processing-150458?logo=pandas) ![SQL](https://img.shields.io/badge/SQL-Analytics-4479A1)
+The repository demonstrates reproducible profiling, data cleaning, dimensional transformation, PostgreSQL warehousing, SQL analytics, and a Power BI dashboard asset.
 
-> **Repository status:** The Python, SQL, Gold-layer outputs, warehouse audit, and Power BI file are present. Power BI page metadata, DAX source, and dashboard screenshots are not stored as separate repository artifacts, so this README does not invent page-level or measure-level claims that cannot be verified from source files.
+> **Repository status:** The project pipeline, SQL analytics, warehouse validation, Power BI dashboard, and technical documentation are included. Generated RAW, SILVER, and GOLD CSV datasets are intentionally excluded from GitHub because of their size. The repository contains reproducible scripts to regenerate these layers locally.
 
 ## Overview
 
