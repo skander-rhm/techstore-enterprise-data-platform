@@ -23,6 +23,21 @@ flowchart TD
     I --> J[Interactive dashboard]
 ```
 
+## Tech Stack
+
+| Layer                 | Technologies      |
+| --------------------- | ----------------- |
+| Data Processing       | Python, Pandas    |
+| Data Cleaning         | Python, Pandas    |
+| Data Transformation   | Python            |
+| Data Warehouse        | PostgreSQL        |
+| SQL Analytics         | SQL, PostgreSQL   |
+| Business Intelligence | Power BI          |
+| Data Visualization    | Power BI          |
+| Analytics             | DAX               |
+| Documentation         | Markdown, Mermaid |
+| Version Control       | Git, GitHub       |
+
 ## Business Context
 
 The source represents technology retail or distribution transactions. It includes sales, customers, products, suppliers, employees, stores, warehouses, payments, returns, inventory-related fields, pricing, costs, discounts, shipping, and customer satisfaction.
