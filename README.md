@@ -44,15 +44,15 @@ The analytical model supports questions such as:
 
 ## Data Pipeline
 
-| Layer | Purpose | Main implementation |
-|---|---|---|
-| RAW | Immutable source data | `data/raw/techstore_dataset.csv` |
-| Profiling | Structural and missing-value analysis | `src/quality/profile_dataset.py` |
-| SILVER | Cleaned, validated transaction data | `src/cleaning/clean_dataset.py` |
-| GOLD | Dimensions and facts at documented grains | `src/transformation/split_into_tables.py` |
-| Warehouse | PostgreSQL relational model | `sql/warehouse/`, `src/warehouse/load_datawarehouse.py` |
-| Analytics | Reusable views and analytical SQL | `sql/analytics/` |
-| BI | Power BI model and dashboard | `powerbi/TechStore_Business_Intelligence_Dashboard.pbix` |
+| Layer     | Purpose                                   | Main implementation                                      |
+| --------- | ----------------------------------------- | -------------------------------------------------------- |
+| RAW       | Immutable source data                     | `data/raw/techstore_dataset.csv`                         |
+| Profiling | Structural and missing-value analysis     | `src/quality/profile_dataset.py`                         |
+| SILVER    | Cleaned, validated transaction data       | `src/cleaning/clean_dataset.py`                          |
+| GOLD      | Dimensions and facts at documented grains | `src/transformation/split_into_tables.py`                |
+| Warehouse | PostgreSQL relational model               | `sql/warehouse/`, `src/warehouse/load_datawarehouse.py`  |
+| Analytics | Reusable views and analytical SQL         | `sql/analytics/`                                         |
+| BI        | Power BI model and dashboard              | `powerbi/TechStore_Business_Intelligence_Dashboard.pbix` |
 
 ## Dataset
 
@@ -99,10 +99,10 @@ See [`docs/reports/cleaning_report.md`](docs/reports/cleaning_report.md) and the
 
 The transformation produces 11 logical tables:
 
-| Type | Tables |
-|---|---|
+| Type       | Tables                                                                                                                                              |
+| ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Dimensions | `dim_customer` (24,999), `dim_product` (600), `dim_supplier` (60), `dim_employee` (350), `dim_store` (31), `dim_warehouse` (31), `dim_date` (1,854) |
-| Facts | `fact_sales` (320,000), `fact_returns` (16,192), `fact_payments` (320,000), `fact_inventory` (320,000) |
+| Facts      | `fact_sales` (320,000), `fact_returns` (16,192), `fact_payments` (320,000), `fact_inventory` (320,000)                                              |
 
 The fact grains are documented in [`docs/reports/transformation_report.md`](docs/reports/transformation_report.md). The transformation quality audit reports PASS for primary keys, foreign keys, financial calculations, dates, returns, payments, inventory, and completeness.
 
@@ -134,26 +134,91 @@ Scripts `01` through `09` cover sales KPIs and trends, products, customers, stor
 
 The verified global KPI snapshot in [`docs/reports/sql_analytics_report.md`](docs/reports/sql_analytics_report.md) includes:
 
-| KPI | Value |
-|---|---:|
-| Total revenue | 422,095,306.10 |
-| Net revenue | 400,147,824.80 |
-| Total cost | 284,682,045.70 |
-| Gross margin | 115,465,779.10 |
-| Gross margin % | 28.8558% |
-| Quantity sold | 540,337 |
-| Number of sales | 320,000 |
-| Average order value | 1,250.46 |
-| Customers | 24,999 |
-| Products sold | 600 |
-| Returned sales | 16,192 |
-| Return rate | 5.06% |
+| KPI                 |          Value |
+| ------------------- | -------------: |
+| Total revenue       | 422,095,306.10 |
+| Net revenue         | 400,147,824.80 |
+| Total cost          | 284,682,045.70 |
+| Gross margin        | 115,465,779.10 |
+| Gross margin %      |       28.8558% |
+| Quantity sold       |        540,337 |
+| Number of sales     |        320,000 |
+| Average order value |       1,250.46 |
+| Customers           |         24,999 |
+| Products sold       |            600 |
+| Returned sales      |         16,192 |
+| Return rate         |          5.06% |
 
 ## Power BI and DAX
 
-The repository contains [`powerbi/TechStore_Business_Intelligence_Dashboard.pbix`](powerbi/TechStore_Business_Intelligence_Dashboard.pbix). It is intended to connect to the PostgreSQL `dw` schema as the semantic-model foundation, allowing relationships, measures, filtering, and time intelligence to be maintained in Power BI.
+The project includes an interactive Power BI dashboard built on top of the PostgreSQL `dw` data warehouse.
 
-The PBIX is a binary artifact and its internal page and measure metadata is not represented in source-controlled text files. No screenshots or standalone DAX documentation are currently present. Add exported screenshots under `docs/images/` and a DAX catalog when those assets are available; do not treat absent documentation as evidence that a particular visual or measure exists.
+Power BI is used as the semantic and analytical layer of the platform, with relationships between dimensions and fact tables, DAX measures, filtering, cross-analysis, and time-intelligence calculations.
+
+**Power BI file:** [`powerbi/TechStore_Business_Intelligence_Dashboard.pbix`](powerbi/TechStore_Business_Intelligence_Dashboard.pbix)
+
+### Dashboard Pages
+
+The dashboard contains six analytical pages:
+
+1. **Executive Overview** — high-level business KPIs, revenue, margin, sales performance, and customer segmentation.
+2. **Sales Analysis** — revenue trends, category performance, stores, customers, and top products.
+3. **Product Analysis** — product, brand, category, pricing, revenue, and margin analysis.
+4. **Customer Analysis** — customer-level and segment-level performance analysis.
+5. **Store & Employee Analysis** — store and employee performance analysis.
+6. **Returns & Inventory** — return analysis and inventory monitoring.
+
+### Dashboard Preview
+
+#### Executive Overview
+
+![Executive Overview](docs/images/executive-overview.png)
+
+#### Sales Analysis
+
+![Sales Analysis](docs/images/sales-analysis.png)
+
+#### Product Analysis
+
+![Product Analysis](docs/images/product-analysis.png)
+
+#### Customer Analysis
+
+![Customer Analysis](docs/images/customer-analysis.png)
+
+#### Store & Employee Analysis
+
+![Store & Employee Analysis](docs/images/store-employee-analysis.png)
+
+#### Returns & Inventory
+
+![Returns & Inventory](docs/images/returns-inventory.png)
+
+### DAX
+
+The Power BI semantic model includes DAX measures for business KPIs, profitability, sales performance, returns, customer analysis, and time-based analysis.
+
+Examples of analytical measures include:
+
+- Total Revenue
+- Total Cost
+- Gross Margin
+- Gross Margin %
+- Quantity Sold
+- Number of Sales
+- Average Order Value
+- Return Rate %
+- Total Discount
+- Total Refund
+- Number of Customers
+- Number of Products
+- Sales Growth %
+- Revenue YTD
+- Revenue YoY %
+- Margin YTD
+- Margin YoY %
+
+The PBIX remains the source for the complete Power BI semantic model, relationships, visuals, and DAX implementation.
 
 ## Data Quality
 
