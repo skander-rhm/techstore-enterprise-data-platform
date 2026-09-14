@@ -1,0 +1,72 @@
+{
+  "primary_key_issues": {
+    "dim_customer": 0,
+    "dim_product": 0,
+    "dim_supplier": 0,
+    "dim_employee": 0,
+    "dim_store": 0,
+    "dim_warehouse": 0,
+    "dim_date": 0,
+    "fact_sales": 0,
+    "fact_returns": 0,
+    "fact_payments": 0,
+    "fact_inventory": 0
+  },
+  "foreign_key_issues": {
+    "dim_product.supplier_id -> dim_supplier": 0,
+    "dim_warehouse.store_id -> dim_store": 0,
+    "fact_sales.customer_id -> dim_customer": 0,
+    "fact_sales.product_id -> dim_product": 0,
+    "fact_sales.employee_id -> dim_employee": 0,
+    "fact_sales.store_id -> dim_store": 0,
+    "fact_sales.warehouse_id -> dim_warehouse": 0,
+    "fact_sales.sale_date_key -> dim_date": 0,
+    "fact_sales.delivery_date_key -> dim_date": 0,
+    "fact_returns.sale_id -> fact_sales": 0,
+    "fact_returns.return_date_key -> dim_date": 0,
+    "fact_payments.sale_id -> fact_sales": 0,
+    "fact_inventory.sale_id -> fact_sales": 0,
+    "fact_inventory.product_id -> dim_product": 0,
+    "fact_inventory.warehouse_id -> dim_warehouse": 0
+  },
+  "financial_issues": {
+    "gross_amount": 0,
+    "discount_amount": 0,
+    "net_amount": 0,
+    "total_cost": 0,
+    "margin_amount": 0
+  },
+  "quantity_issues": {
+    "sales_quantity_missing": 0,
+    "sales_quantity_non_positive": 0,
+    "inventory_quantity_mismatch": 0,
+    "inventory_stock_arithmetic": 0
+  },
+  "date_issues": {
+    "date_key_missing": 0,
+    "date_key_format_issues": 0,
+    "date_key_value_mismatch": 0,
+    "fact_date_key_missing": 0
+  },
+  "return_issues": {
+    "returned_flag_mismatch": 0,
+    "return_date_missing": 0,
+    "refund_above_net_amount": 0
+  },
+  "payment_issues": {
+    "payment_amount_mismatch": 0,
+    "payment_status_missing": 0
+  },
+  "inventory_issues": {
+    "inventory_sale_alignment": 0,
+    "negative_stock": 0,
+    "stock_value_missing": 0
+  },
+  "completeness_issues": {
+    "fact_sales_row_difference_vs_silver": 0,
+    "payment_row_difference_vs_sales": 0,
+    "inventory_row_difference_vs_sales": 0,
+    "returns_not_matching_returned_sales": 0
+  },
+  "passed": true
+}

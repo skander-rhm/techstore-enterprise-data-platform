@@ -1,0 +1,24 @@
+{
+  "executed_at_utc": "2026-09-08T11:27:18.829264+00:00",
+  "source_file": "C:\\Users\\skand\\Desktop\\TechStore\\techstore-enterprise-data-platform\\data\\raw\\techstore_dataset.csv",
+  "rows_before": 320000,
+  "corrections": {
+    "text_values_normalized": 0,
+    "invalid_sale_date_converted_to_null": 0,
+    "invalid_delivery_date_converted_to_null": 0,
+    "invalid_return_date_converted_to_null": 0,
+    "exact_duplicate_rows_removed": 0,
+    "duplicate_sale_ids_removed": 0,
+    "invalid_customer_ages_converted_to_null": 0,
+    "customer_ages_imputed": 3129,
+    "negative_shipping_costs_converted_to_null": 0,
+    "shipping_costs_imputed": 3248,
+    "gross_amount_recalculated": 0,
+    "discount_amount_recalculated": 0,
+    "net_amount_recalculated": 0,
+    "total_cost_recalculated": 0,
+    "margin_amount_recalculated": 0,
+    "margin_pct_recalculated": 0
+  },
+  "rows_after": 320000
+}

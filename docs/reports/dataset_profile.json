@@ -1,0 +1,762 @@
+{
+  "source_file": "data/raw/techstore_dataset.csv",
+  "rows": 320000,
+  "columns": 58,
+  "exact_duplicate_rows": 0,
+  "columns_profile": [
+    {
+      "column": "sale_id",
+      "dtype": "str",
+      "non_null_count": 320000,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "distinct_count": 320000,
+      "sample_values": [
+        "TRX0000001",
+        "TRX0000002",
+        "TRX0000003"
+      ]
+    },
+    {
+      "column": "sale_date",
+      "dtype": "str",
+      "non_null_count": 320000,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "distinct_count": 1826,
+      "sample_values": [
+        "2020-06-16",
+        "2020-08-02",
+        "2021-12-14"
+      ]
+    },
+    {
+      "column": "sale_year",
+      "dtype": "int64",
+      "non_null_count": 320000,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "distinct_count": 5,
+      "sample_values": [
+        "2020",
+        "2020",
+        "2021"
+      ]
+    },
+    {
+      "column": "sale_month",
+      "dtype": "int64",
+      "non_null_count": 320000,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "distinct_count": 12,
+      "sample_values": [
+        "6",
+        "8",
+        "12"
+      ]
+    },
+    {
+      "column": "sale_day",
+      "dtype": "int64",
+      "non_null_count": 320000,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "distinct_count": 31,
+      "sample_values": [
+        "16",
+        "2",
+        "14"
+      ]
+    },
+    {
+      "column": "sale_quarter",
+      "dtype": "int64",
+      "non_null_count": 320000,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "distinct_count": 4,
+      "sample_values": [
+        "2",
+        "3",
+        "4"
+      ]
+    },
+    {
+      "column": "sale_weekday",
+      "dtype": "str",
+      "non_null_count": 320000,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "distinct_count": 7,
+      "sample_values": [
+        "Tuesday",
+        "Sunday",
+        "Tuesday"
+      ]
+    },
+    {
+      "column": "store_id",
+      "dtype": "str",
+      "non_null_count": 320000,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "distinct_count": 31,
+      "sample_values": [
+        "STR002",
+        "STR029",
+        "STR027"
+      ]
+    },
+    {
+      "column": "store_name",
+      "dtype": "str",
+      "non_null_count": 320000,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "distinct_count": 31,
+      "sample_values": [
+        "TechStore Lyon",
+        "TechStore Abidjan",
+        "TechStore New York"
+      ]
+    },
+    {
+      "column": "store_city",
+      "dtype": "str",
+      "non_null_count": 320000,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "distinct_count": 31,
+      "sample_values": [
+        "Lyon",
+        "Abidjan",
+        "New York"
+      ]
+    },
+    {
+      "column": "store_country",
+      "dtype": "str",
+      "non_null_count": 320000,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "distinct_count": 20,
+      "sample_values": [
+        "France",
+        "Côte d'Ivoire",
+        "États-Unis"
+      ]
+    },
+    {
+      "column": "store_region",
+      "dtype": "str",
+      "non_null_count": 320000,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "distinct_count": 4,
+      "sample_values": [
+        "Europe",
+        "Afrique",
+        "Amérique du Nord"
+      ]
+    },
+    {
+      "column": "store_type",
+      "dtype": "str",
+      "non_null_count": 320000,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "distinct_count": 4,
+      "sample_values": [
+        "Corner en galerie marchande",
+        "Retail Park",
+        "Hypermarché high-tech"
+      ]
+    },
+    {
+      "column": "employee_id",
+      "dtype": "str",
+      "non_null_count": 320000,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "distinct_count": 350,
+      "sample_values": [
+        "EMP0308",
+        "EMP0258",
+        "EMP0067"
+      ]
+    },
+    {
+      "column": "employee_full_name",
+      "dtype": "str",
+      "non_null_count": 320000,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "distinct_count": 280,
+      "sample_values": [
+        "Ethan Bouazizi",
+        "Lucas Moreau",
+        "Enzo Chaabane"
+      ]
+    },
+    {
+      "column": "employee_role",
+      "dtype": "str",
+      "non_null_count": 320000,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "distinct_count": 7,
+      "sample_values": [
+        "Vendeur",
+        "Manager Magasin",
+        "Vendeur Senior"
+      ]
+    },
+    {
+      "column": "customer_id",
+      "dtype": "str",
+      "non_null_count": 320000,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "distinct_count": 24999,
+      "sample_values": [
+        "CUS10656",
+        "CUS03585",
+        "CUS10249"
+      ]
+    },
+    {
+      "column": "customer_full_name",
+      "dtype": "str",
+      "non_null_count": 320000,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "distinct_count": 900,
+      "sample_values": [
+        "Lina Bernard",
+        "Louis Robert",
+        "Lucas Lefebvre"
+      ]
+    },
+    {
+      "column": "customer_email",
+      "dtype": "str",
+      "non_null_count": 320000,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "distinct_count": 24999,
+      "sample_values": [
+        "lina.bernard10655@topnet.tn",
+        "louis.robert3584@outlook.com",
+        "lucas.lefebvre10248@gmail.com"
+      ]
+    },
+    {
+      "column": "customer_gender",
+      "dtype": "str",
+      "non_null_count": 320000,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "distinct_count": 3,
+      "sample_values": [
+        "F",
+        "F",
+        "M"
+      ]
+    },
+    {
+      "column": "customer_age",
+      "dtype": "float64",
+      "non_null_count": 316871,
+      "missing_count": 3129,
+      "missing_pct": 0.98,
+      "distinct_count": 64,
+      "sample_values": [
+        "48.0",
+        "71.0",
+        "54.0"
+      ]
+    },
+    {
+      "column": "customer_city",
+      "dtype": "str",
+      "non_null_count": 320000,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "distinct_count": 31,
+      "sample_values": [
+        "Le Caire",
+        "Québec",
+        "Genève"
+      ]
+    },
+    {
+      "column": "customer_segment",
+      "dtype": "str",
+      "non_null_count": 320000,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "distinct_count": 4,
+      "sample_values": [
+        "Professionnel",
+        "Entreprise",
+        "Particulier"
+      ]
+    },
+    {
+      "column": "product_id",
+      "dtype": "str",
+      "non_null_count": 320000,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "distinct_count": 600,
+      "sample_values": [
+        "PRD0315",
+        "PRD0031",
+        "PRD0111"
+      ]
+    },
+    {
+      "column": "product_name",
+      "dtype": "str",
+      "non_null_count": 320000,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "distinct_count": 600,
+      "sample_values": [
+        "Samsung Moniteur Gaming 3913",
+        "Apple Workstation 4465",
+        "HyperX Manette 2014"
+      ]
+    },
+    {
+      "column": "product_category",
+      "dtype": "str",
+      "non_null_count": 320000,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "distinct_count": 10,
+      "sample_values": [
+        "Écrans",
+        "Ordinateurs de Bureau",
+        "Périphériques"
+      ]
+    },
+    {
+      "column": "product_subcategory",
+      "dtype": "str",
+      "non_null_count": 320000,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "distinct_count": 49,
+      "sample_values": [
+        "Moniteur Gaming",
+        "Workstation",
+        "Manette"
+      ]
+    },
+    {
+      "column": "product_brand",
+      "dtype": "str",
+      "non_null_count": 320000,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "distinct_count": 48,
+      "sample_values": [
+        "Samsung",
+        "Apple",
+        "HyperX"
+      ]
+    },
+    {
+      "column": "product_warranty_months",
+      "dtype": "int64",
+      "non_null_count": 320000,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "distinct_count": 4,
+      "sample_values": [
+        "24",
+        "12",
+        "12"
+      ]
+    },
+    {
+      "column": "supplier_id",
+      "dtype": "str",
+      "non_null_count": 320000,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "distinct_count": 60,
+      "sample_values": [
+        "SUP014",
+        "SUP022",
+        "SUP034"
+      ]
+    },
+    {
+      "column": "supplier_name",
+      "dtype": "str",
+      "non_null_count": 320000,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "distinct_count": 60,
+      "sample_values": [
+        "AMD",
+        "HyperX",
+        "Anker Innovations"
+      ]
+    },
+    {
+      "column": "supplier_country",
+      "dtype": "str",
+      "non_null_count": 320000,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "distinct_count": 8,
+      "sample_values": [
+        "Japon",
+        "Corée du Sud",
+        "Japon"
+      ]
+    },
+    {
+      "column": "quantity",
+      "dtype": "int64",
+      "non_null_count": 320000,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "distinct_count": 5,
+      "sample_values": [
+        "2",
+        "1",
+        "1"
+      ]
+    },
+    {
+      "column": "unit_price",
+      "dtype": "float64",
+      "non_null_count": 320000,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "distinct_count": 598,
+      "sample_values": [
+        "515.53",
+        "564.32",
+        "288.61"
+      ]
+    },
+    {
+      "column": "unit_cost",
+      "dtype": "float64",
+      "non_null_count": 320000,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "distinct_count": 598,
+      "sample_values": [
+        "316.43",
+        "370.91",
+        "194.71"
+      ]
+    },
+    {
+      "column": "discount_pct",
+      "dtype": "float64",
+      "non_null_count": 320000,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "distinct_count": 6,
+      "sample_values": [
+        "0.1",
+        "0.0",
+        "0.0"
+      ]
+    },
+    {
+      "column": "gross_amount",
+      "dtype": "float64",
+      "non_null_count": 320000,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "distinct_count": 2983,
+      "sample_values": [
+        "1031.06",
+        "564.32",
+        "288.61"
+      ]
+    },
+    {
+      "column": "discount_amount",
+      "dtype": "float64",
+      "non_null_count": 320000,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "distinct_count": 7313,
+      "sample_values": [
+        "103.11",
+        "0.0",
+        "0.0"
+      ]
+    },
+    {
+      "column": "net_amount",
+      "dtype": "float64",
+      "non_null_count": 320000,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "distinct_count": 15323,
+      "sample_values": [
+        "927.95",
+        "564.32",
+        "288.61"
+      ]
+    },
+    {
+      "column": "total_cost",
+      "dtype": "float64",
+      "non_null_count": 320000,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "distinct_count": 2963,
+      "sample_values": [
+        "632.86",
+        "370.91",
+        "194.71"
+      ]
+    },
+    {
+      "column": "margin_amount",
+      "dtype": "float64",
+      "non_null_count": 320000,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "distinct_count": 14406,
+      "sample_values": [
+        "295.09",
+        "193.41",
+        "93.9"
+      ]
+    },
+    {
+      "column": "margin_pct",
+      "dtype": "float64",
+      "non_null_count": 320000,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "distinct_count": 568,
+      "sample_values": [
+        "0.318",
+        "0.343",
+        "0.325"
+      ]
+    },
+    {
+      "column": "currency",
+      "dtype": "str",
+      "non_null_count": 320000,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "distinct_count": 9,
+      "sample_values": [
+        "EUR",
+        "TND",
+        "USD"
+      ]
+    },
+    {
+      "column": "payment_method",
+      "dtype": "str",
+      "non_null_count": 320000,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "distinct_count": 6,
+      "sample_values": [
+        "PayPal",
+        "Carte Bancaire",
+        "Carte Bancaire"
+      ]
+    },
+    {
+      "column": "payment_status",
+      "dtype": "str",
+      "non_null_count": 320000,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "distinct_count": 4,
+      "sample_values": [
+        "Payé",
+        "Payé",
+        "Payé"
+      ]
+    },
+    {
+      "column": "sales_channel",
+      "dtype": "str",
+      "non_null_count": 320000,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "distinct_count": 4,
+      "sample_values": [
+        "Magasin Physique",
+        "Application Mobile",
+        "Magasin Physique"
+      ]
+    },
+    {
+      "column": "delivery_method",
+      "dtype": "str",
+      "non_null_count": 320000,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "distinct_count": 4,
+      "sample_values": [
+        "Livraison Standard",
+        "Point Relais",
+        "Retrait Magasin"
+      ]
+    },
+    {
+      "column": "shipping_cost",
+      "dtype": "float64",
+      "non_null_count": 316752,
+      "missing_count": 3248,
+      "missing_pct": 1.01,
+      "distinct_count": 2302,
+      "sample_values": [
+        "4.22",
+        "2.34",
+        "0.0"
+      ]
+    },
+    {
+      "column": "delivery_date",
+      "dtype": "str",
+      "non_null_count": 320000,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "distinct_count": 1835,
+      "sample_values": [
+        "2020-06-24",
+        "2020-08-11",
+        "2021-12-14"
+      ]
+    },
+    {
+      "column": "order_status",
+      "dtype": "str",
+      "non_null_count": 320000,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "distinct_count": 4,
+      "sample_values": [
+        "Livrée",
+        "Livrée",
+        "Livrée"
+      ]
+    },
+    {
+      "column": "is_returned",
+      "dtype": "bool",
+      "non_null_count": 320000,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "distinct_count": 2,
+      "sample_values": [
+        "False",
+        "False",
+        "False"
+      ]
+    },
+    {
+      "column": "return_reason",
+      "dtype": "str",
+      "non_null_count": 16192,
+      "missing_count": 303808,
+      "missing_pct": 94.94,
+      "distinct_count": 6,
+      "sample_values": [
+        "Erreur de commande",
+        "Produit endommagé pendant transport",
+        "Erreur de commande"
+      ]
+    },
+    {
+      "column": "return_date",
+      "dtype": "str",
+      "non_null_count": 16192,
+      "missing_count": 303808,
+      "missing_pct": 94.94,
+      "distinct_count": 1849,
+      "sample_values": [
+        "2024-03-29",
+        "2022-01-14",
+        "2024-08-22"
+      ]
+    },
+    {
+      "column": "refund_amount",
+      "dtype": "float64",
+      "non_null_count": 320000,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "distinct_count": 6499,
+      "sample_values": [
+        "0.0",
+        "0.0",
+        "0.0"
+      ]
+    },
+    {
+      "column": "warehouse_id",
+      "dtype": "str",
+      "non_null_count": 320000,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "distinct_count": 31,
+      "sample_values": [
+        "WH002",
+        "WH029",
+        "WH027"
+      ]
+    },
+    {
+      "column": "stock_before_sale",
+      "dtype": "int64",
+      "non_null_count": 320000,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "distinct_count": 253,
+      "sample_values": [
+        "152",
+        "9",
+        "7"
+      ]
+    },
+    {
+      "column": "stock_after_sale",
+      "dtype": "int64",
+      "non_null_count": 320000,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "distinct_count": 249,
+      "sample_values": [
+        "150",
+        "8",
+        "6"
+      ]
+    },
+    {
+      "column": "customer_satisfaction_score",
+      "dtype": "float64",
+      "non_null_count": 206179,
+      "missing_count": 113821,
+      "missing_pct": 35.57,
+      "distinct_count": 5,
+      "sample_values": [
+        "5.0",
+        "5.0",
+        "4.0"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "started_at_utc": "2026-09-08T12:38:21.173795+00:00",
+  "status": "PASS",
+  "tables": {
+    "dw_dim_date": {
+      "source_rows": 1854,
+      "destination_rows": 1854
+    },
+    "dw_dim_supplier": {
+      "source_rows": 60,
+      "destination_rows": 60
+    },
+    "dw_dim_store": {
+      "source_rows": 31,
+      "destination_rows": 31
+    },
+    "dw_dim_warehouse": {
+      "source_rows": 31,
+      "destination_rows": 31
+    },
+    "dw_dim_customer": {
+      "source_rows": 24999,
+      "destination_rows": 24999
+    },
+    "dw_dim_product": {
+      "source_rows": 600,
+      "destination_rows": 600
+    },
+    "dw_dim_employee": {
+      "source_rows": 350,
+      "destination_rows": 350
+    },
+    "dw_fact_sales": {
+      "source_rows": 320000,
+      "destination_rows": 320000
+    },
+    "dw_fact_returns": {
+      "source_rows": 16192,
+      "destination_rows": 16192
+    },
+    "dw_fact_payments": {
+      "source_rows": 320000,
+      "destination_rows": 320000
+    },
+    "dw_fact_inventory": {
+      "source_rows": 320000,
+      "destination_rows": 320000
+    }
+  },
+  "quality_checks": [
+    {
+      "check": "fact_sales_row_count",
+      "status": "PASS",
+      "observed_value": 320000
+    },
+    {
+      "check": "fact_sales_duplicate_sale_id",
+      "status": "PASS",
+      "observed_value": 0
+    },
+    {
+      "check": "fact_sales_amount_consistency",
+      "status": "PASS",
+      "observed_value": 0
+    },
+    {
+      "check": "fact_returns_referential_integrity",
+      "status": "PASS",
+      "observed_value": 0
+    },
+    {
+      "check": "fact_payments_amount_consistency",
+      "status": "PASS",
+      "observed_value": 0
+    },
+    {
+      "check": "fact_inventory_consistency",
+      "status": "PASS",
+      "observed_value": 0
+    }
+  ],
+  "validation": {
+    "tables_present": true,
+    "volume_match": true,
+    "pk_pass": true,
+    "fk_pass": true,
+    "fk_orphans": 0,
+    "surrogate_keys_pass": true,
+    "quality_checks_pass": true
+  },
+  "finished_at_utc": "2026-09-08T12:39:00.538835+00:00"
+}
