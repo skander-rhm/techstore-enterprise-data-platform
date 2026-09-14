@@ -23,6 +23,44 @@ flowchart TD
     I --> J[Interactive dashboard]
 ```
 
+## Project Architecture
+The platform follows a layered data architecture designed to separate data ingestion, quality control, transformation, warehousing, analytics, and visualization.
+
+```
+RAW
+ │
+ ▼
+Python Profiling
+ │
+ ▼
+SILVER — Cleaned & Validated Data
+ │
+ ▼
+Python Transformation
+ │
+ ▼
+GOLD — Dimensional Model
+ │
+ ▼
+PostgreSQL Data Warehouse
+ │
+ ├── SQL Analytics
+ │
+ └── Power BI Semantic Model
+       │
+       ▼
+   Interactive Dashboard
+```
+
+### Data Layers
+
+- **RAW** — Original source dataset preserved without modification.
+- **SILVER** — Cleaned, validated, and quality-controlled transactional data.
+- **GOLD** — Dimensional data model containing fact and dimension tables.
+- **Data Warehouse** — PostgreSQL `dw` schema used as the central analytical repository.
+- **Analytics** — SQL queries and analytical views for business analysis.
+- **BI Layer** — Power BI semantic model with relationships, DAX measures, filtering, and interactive dashboards.
+
 ## Tech Stack
 
 | Layer                 | Technologies      |
